@@ -1,0 +1,9 @@
+#btn-bar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.scroll {
+    max-height: 400px;
+    overflow-y: auto;
+}
