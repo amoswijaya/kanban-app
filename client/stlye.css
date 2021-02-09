@@ -2,12 +2,30 @@
     display: flex;
     justify-content: flex-end;
 }
-
+body{
+    background-color: #f0ece3;
+}
 .scroll {
-    max-height: 400px;
+    max-height: 450px;
     overflow-y: auto;
 }
 
 .color-icons{
     color:#ff5e78;
+}
+
+.card-text{
+    font-size: 1em;
+}
+
+.crem{
+    background-color: #ede0d4;
+}
+
+.card-bg-color{
+    background-color: #ddb892;
+}
+
+.form-bg-color{
+    background-color: #9c6644;
 }

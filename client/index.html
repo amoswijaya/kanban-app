@@ -13,182 +13,200 @@
 </head>
 
 <body>
-	<nav class="container-fluid bg-light">
-		<div class="row justify-content-between">
-			<div class="col-4 mx-5 my-3">kanban</div>
-			<div class="col-4 mx-5 my-3" id="btn-bar">Home</div>
+	<nav class="navbar navbar-inverse crem">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Kanban</a>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right list-inline">
+				<li><a href="#"><span class="material-icons">  logout</span>Logout</a></li>
+				<li><a href="#"><span class="material-icons">  login</span>Login</a></li>
+			</ul>
 		</div>
 	</nav>
 
-	<div class="container justify-content-start">
-		<div class="row my-2 ">
-			<!-- start back-log -->
-			<div class="col ">
-				<div class="card bg-light">
+
+
+	<!-- login page -->
+
+
+	<!-- end login page -->
+
+
+	<!-- conntent -->
+	<div class="container-fluid ">
+		<div class="row">
+			<!-- form add task -->
+			<div class="col">
+				<div class="card mt-4 form-bg-color">
 					<div class="card-body">
-						<!-- start title -->
-						<div class="row">
-							<div class="col">
-								<h5 class="card-title">Back-log</h5>
+						<form>
+							<div class="mb-3">
+								<input type="text" class="form-control" id="titleTask" placeholder="Title" >
 							</div>
-							<div class="col"><span class="material-icons">library_add</span></div>
-						</div>
-						<!-- end  title-->
-						<!-- tempat card-back-log -->
-						<div class="scroll">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
-										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
-										</div>
-									</div>
-								</div>
+							<div class="mb-3">
+								<textarea name="descriptiom" id="descriptiom" cols="15" rows="5" class="form-control" placeholder="Description" ></textarea>
 							</div>
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
-										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
-										</div>
-									</div>
-								</div>
+							<div class="mb-3">
+								<select class="form-select" >
+									<option selected disabled>-- Category --</option>
+									<option value="1">Back-log</option>
+									<option value="2">Product</option>
+									<option value="3">Development</option>
+									<option value="4">Done</option>
+								</select>
 							</div>
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
-										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
-										</div>
-									</div>
-								</div>
+							<div class="mb-3">
+								<input type="text" class="form-control" id="writtenBy" placeholder="your name" >
 							</div>
-						</div>
-						<!-- end  tempat card-back-log -->
+							<button type="submit" class="btn btn-primary">Add task</button>
+						</form>
 					</div>
 				</div>
 			</div>
-			<!-- end back-log -->
-			<!-- start Product -->
-			<div class="col  ">
-				<div class="card bg-light">
-					<div class="card-body">
-						<div class="row">
-							<div class="col">
-								<h5 class="card-title">Product</h5>
-							</div>
-							<div class="col"><span class="material-icons">library_add</span></div>
-						</div>
-						<!-- end  title-->
-						<!-- tempat card-product -->
-						<div class="scroll">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
-										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
+			<!-- end form add task -->
+			<div class="col-9">
+				<div class="row my-2 ">
+					<!-- start back-log -->
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="card card-bg-color">
+							<div class="card-body">
+								<!-- start title -->
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title">Back-log</h5>
+									</div>
+									<div class="col"><span class="material-icons">library_add</span></div>
+								</div>
+								<!-- end  title-->
+								<!-- tempat card-back-log -->
+								<div class="scroll">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<h6 class="card-title">Special title treatment</h6>
+													<p class="card-text text-muted my-1"><small>from : amos</small> </p>
+													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt iusto natus fuga facilis est explicabo, mollitia, numquam quis labore. Odio exercitationem veniam vel?</small> </p>
+												</div>
+												<div class="col-3 offset-8 align-items-end d-flex text-end">
+													<a href="#"><span class="material-icons color-icons">delete</span></a>
+													<a href="#"><span class="material-icons">exit_to_app</span></a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
+								<!-- end  tempat card-back-log -->
 							</div>
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
+						</div>
+					</div>
+					<!-- end back-log -->
+					<!-- start Product -->
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="card card-bg-color">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title">Product</h5>
+									</div>
+									<div class="col"><span class="material-icons">library_add</span></div>
+								</div>
+								<!-- end  title-->
+								<!-- tempat card-product -->
+								<div class="scroll">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<h6 class="card-title">Special title treatment</h6>
+													<p class="card-text"> <small>Lorem, ipsum dolor  </small> </p>
+												</div>
+												<div class="col align-items-end d-flex ">
+													<a href="#"><span class="material-icons color-icons">delete</span></a>
+													<a href="#"><span class="material-icons">exit_to_app</span></a>
+												</div>
+											</div>
 										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
+									</div>
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<h6 class="card-title">Special title treatment</h6>
+													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt iusto natus fuga facilis est explicabo, mollitia, numquam quis labore. Odio exercitationem veniam vel?</small> </p>
+												</div>
+												<div class="col align-items-end d-flex ">
+													<a href="#"><span class="material-icons color-icons">delete</span></a>
+													<a href="#"><span class="material-icons">exit_to_app</span></a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
+								<!-- end  tempat card-product -->
 							</div>
 						</div>
-						<!-- end  tempat card-product -->
 					</div>
-				</div>
-			</div>
-			<!-- end Product -->
-			<!-- start development -->
-			<div class="col  ">
-				<div class="card bg-light">
-					<div class="card-body">
-						<div class="row">
-							<div class="col">
-								<h5 class="card-title">Development</h5>
-							</div>
-							<div class="col"><span class="material-icons">library_add</span></div>
-						</div>
-						<!-- end  title-->
-						<!-- tempat card-Development -->
-						<div class="scroll">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-8">
-											<h6 class="card-title">Special title treatment</h6>
-											<p class="card-text"> <small>With supporting text below as a natural lead-in
-													to additional content</small> </p>
-										</div>
-										<div class="col-4 align-items-end d-flex ">
-											<a href="#"><span class="material-icons color-icons">delete</span></a>
-											<a href="#"><span class="material-icons">exit_to_app</span></a>
+					<!-- end Product -->
+					<!-- start development -->
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="card card-bg-color">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title">Development</h5>
+									</div>
+									<div class="col"><span class="material-icons">library_add</span></div>
+								</div>
+								<!-- end  title-->
+								<!-- tempat card-Development -->
+								<div class="scroll">
+									<div class="card">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-12">
+													<h6 class="card-title">Special title treatment</h6>
+													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt</small> </p>
+												</div>
+												<div class="col align-items-end d-flex ">
+													<a href="#"><span class="material-icons color-icons">delete</span></a>
+													<a href="#"><span class="material-icons">exit_to_app</span></a>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
+								<!-- end  tempat card-Development -->
 							</div>
 						</div>
-						<!-- end  tempat card-Development -->
 					</div>
-				</div>
-			</div>
-			<!-- end development -->
-			<!-- start done -->
-			<div class="col  ">
-				<div class="card bg-light">
-					<div class="card-body">
-						<div class="row">
-							<div class="col">
-								<h5 class="card-title">Done</h5>
+					<!-- end development -->
+					<!-- start done -->
+					<div class="col-lg-3 col-md-6 col-sm-12">
+						<div class="card card-bg-color">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title">Done</h5>
+									</div>
+									<div class="col"><span class="material-icons">library_add</span></div>
+								</div>
+								<!-- end  title-->
+								<!-- tempat card-Done -->
+								<!-- end  tempat card-Done -->
 							</div>
-							<div class="col"><span class="material-icons">library_add</span></div>
 						</div>
-						<!-- end  title-->
-						<!-- tempat card-Done -->
-						<!-- end  tempat card-Done -->
 					</div>
+					<!-- end done -->
 				</div>
 			</div>
-			<!-- end done -->
+			<!-- end connten -->
+			</div>
 		</div>
-	</div>
+		
+
 </body>
 
 </html>
