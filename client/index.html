@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-signin-client_id" content="638165817231-ns27qioc6tq2gfkn3dc7jeq896dpjtuj.apps.googleusercontent.com">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,200 +14,269 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-inverse crem">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Kanban</a>
+	<div id="app">
+		<nav class="navbar navbar-inverse crem">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Kanban</a>
+				</div>
+				
+				<ul class="nav navbar-nav navbar-right list-inline">
+					<li  v-if="page === 'login'"><a href="#" class="btn" v-on:click.prevent="changePage('register')">Register</a></li>
+					<li  v-else-if="page === 'register'"><a href="#" class="btn" v-on:click.prevent="changePage('login')" >Login</a></li>
+					<li  v-else-if="page === 'kanban'"><a href="#" class="btn" v-on:click.prevent="logout()" >Logout</a></li>
+				</ul>
 			</div>
-			
-			<ul class="nav navbar-nav navbar-right list-inline">
-				<li><a href="#"><span class="material-icons">  logout</span>Logout</a></li>
-				<li><a href="#"><span class="material-icons">  login</span>Login</a></li>
-			</ul>
+		</nav>
+		<!-- register -->
+		<div class="container mx-auto my-auto shadow p-3 mb-5 mt-5 crem rounded" v-if="page === 'register'">
+			<div class="card mx-auto bg-white shadow p-3  crem rounded" style="width: 30em; height: 24em;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Register</h5>
+					<form v-on:submit.prevent="register">
+						<div class="mb-5 mt-5">
+							<input type="email" v-model="registerEmail" class="form-control" placeholder="email">
+						</div>
+						<div class="mb-4">
+							<input type="password" v-model="registerPassword" class="form-control" placeholder="password">
+						</div>
+						<button type="submit" class="btn btn-primary ">Register</button>
+					</form>
+				</div>
+			</div>
 		</div>
-	</nav>
-
-
-
+		<!-- end register -->
 	<!-- login page -->
-
-
-	<!-- end login page -->
-
-
-	<!-- conntent -->
-	<div class="container-fluid ">
-		<div class="row">
-			<!-- form add task -->
-			<div class="col">
-				<div class="card mt-4 form-bg-color">
-					<div class="card-body">
-						<form>
-							<div class="mb-3">
-								<input type="text" class="form-control" id="titleTask" placeholder="Title" >
-							</div>
-							<div class="mb-3">
-								<textarea name="descriptiom" id="descriptiom" cols="15" rows="5" class="form-control" placeholder="Description" ></textarea>
-							</div>
-							<div class="mb-3">
-								<select class="form-select" >
-									<option selected disabled>-- Category --</option>
-									<option value="1">Back-log</option>
-									<option value="2">Product</option>
-									<option value="3">Development</option>
-									<option value="4">Done</option>
-								</select>
-							</div>
-							<div class="mb-3">
-								<input type="text" class="form-control" id="writtenBy" placeholder="your name" >
-							</div>
-							<button type="submit" class="btn btn-primary">Add task</button>
-						</form>
+	<div class="container mx-auto my-auto shadow p-3 mb-5 mt-5 crem rounded" v-else-if="page === 'login'">
+		<div class="card mx-auto bg-white shadow p-3  crem rounded" style="width: 30em; height: 24em;">
+			<div class="card-body">
+				<h5 class="card-title text-center">Login</h5>
+				<form v-on:submit.prevent="login">
+					<div class="mb-5 mt-5">
+						<input type="email" v-model="loginEmail" class="form-control" placeholder="email">
 					</div>
-				</div>
-			</div>
-			<!-- end form add task -->
-			<div class="col-9">
-				<div class="row my-2 ">
-					<!-- start back-log -->
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="card card-bg-color">
-							<div class="card-body">
-								<!-- start title -->
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title">Back-log</h5>
-									</div>
-									<div class="col"><span class="material-icons">library_add</span></div>
-								</div>
-								<!-- end  title-->
-								<!-- tempat card-back-log -->
-								<div class="scroll">
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<h6 class="card-title">Special title treatment</h6>
-													<p class="card-text text-muted my-1"><small>from : amos</small> </p>
-													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt iusto natus fuga facilis est explicabo, mollitia, numquam quis labore. Odio exercitationem veniam vel?</small> </p>
-												</div>
-												<div class="col-3 offset-8 align-items-end d-flex text-end">
-													<a href="#"><span class="material-icons color-icons">delete</span></a>
-													<a href="#"><span class="material-icons">exit_to_app</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end  tempat card-back-log -->
-							</div>
+					<div class="mb-4">
+						<input type="password" v-model="loginPassword" class="form-control" placeholder="password">
+					</div>
+					<div class="row">
+						<div class="col">
+							<button type="submit" class="btn btn-primary ">Login</button>
+						</div>
+						<div class="col">
+							<div class="g-signin2" data-onsuccess="onSignIn"></div>
 						</div>
 					</div>
-					<!-- end back-log -->
-					<!-- start Product -->
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="card card-bg-color">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title">Product</h5>
-									</div>
-									<div class="col"><span class="material-icons">library_add</span></div>
-								</div>
-								<!-- end  title-->
-								<!-- tempat card-product -->
-								<div class="scroll">
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<h6 class="card-title">Special title treatment</h6>
-													<p class="card-text"> <small>Lorem, ipsum dolor  </small> </p>
-												</div>
-												<div class="col align-items-end d-flex ">
-													<a href="#"><span class="material-icons color-icons">delete</span></a>
-													<a href="#"><span class="material-icons">exit_to_app</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<h6 class="card-title">Special title treatment</h6>
-													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt iusto natus fuga facilis est explicabo, mollitia, numquam quis labore. Odio exercitationem veniam vel?</small> </p>
-												</div>
-												<div class="col align-items-end d-flex ">
-													<a href="#"><span class="material-icons color-icons">delete</span></a>
-													<a href="#"><span class="material-icons">exit_to_app</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end  tempat card-product -->
-							</div>
-						</div>
-					</div>
-					<!-- end Product -->
-					<!-- start development -->
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="card card-bg-color">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title">Development</h5>
-									</div>
-									<div class="col"><span class="material-icons">library_add</span></div>
-								</div>
-								<!-- end  title-->
-								<!-- tempat card-Development -->
-								<div class="scroll">
-									<div class="card">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-12">
-													<h6 class="card-title">Special title treatment</h6>
-													<p class="card-text"> <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cupiditate autem eius doloribus quos sunt nobis deserunt</small> </p>
-												</div>
-												<div class="col align-items-end d-flex ">
-													<a href="#"><span class="material-icons color-icons">delete</span></a>
-													<a href="#"><span class="material-icons">exit_to_app</span></a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- end  tempat card-Development -->
-							</div>
-						</div>
-					</div>
-					<!-- end development -->
-					<!-- start done -->
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="card card-bg-color">
-							<div class="card-body">
-								<div class="row">
-									<div class="col">
-										<h5 class="card-title">Done</h5>
-									</div>
-									<div class="col"><span class="material-icons">library_add</span></div>
-								</div>
-								<!-- end  title-->
-								<!-- tempat card-Done -->
-								<!-- end  tempat card-Done -->
-							</div>
-						</div>
-					</div>
-					<!-- end done -->
-				</div>
-			</div>
-			<!-- end connten -->
+				</form>
 			</div>
 		</div>
-		
-
+	</div>
+	<!-- end login page -->
+	<!-- conntent -->
+		<div class="container-fluid" v-else-if="page === 'kanban'">
+			<div class="row">
+				<!-- form  -->
+				<div class="col">
+					<!-- form add task -->
+					<div class="card mt-4 form-bg-color" v-if="!editStatus">
+						<div class="card-body">
+							<form v-on:submit.prevent="addTask">
+								<div class="mb-3">
+									<input type="text" v-model="title" class="form-control" id="titleTask" placeholder="Title" >
+								</div>
+								<div class="mb-3">
+									<textarea name="description" id="description" cols="15" rows="5" v-model="description" class="form-control" placeholder="Description" ></textarea>
+								</div>
+								<div class="mb-3">
+									<select class="form-select" v-model="category" >
+										<option  disabled>-- Category --</option>
+										<option selected value="Back-log">Back-log</option>
+										<option value="Product">Product</option>
+										<option value="Development">Development</option>
+										<option value="Done">Done</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<input type="text" v-model="name" class="form-control" id="writtenBy" placeholder="your name" >
+								</div>
+								<button type="submit" class="btn btn-primary">Add task</button>
+							</form>
+						</div>
+					</div>
+					<!-- end form add task -->
+					<!-- form edit -->
+					<div class="card mt-4 form-bg-color" v-else>
+						<div class="card-body">
+							<form v-on:submit.prevent="saveEdit">
+								<div class="mb-3">
+									<input type="text" v-model="editTitle" class="form-control" id="editTitleTask" placeholder="Title" >
+								</div>
+								<div class="mb-3">
+									<textarea name="editDescription" id="editDescription" cols="15" rows="5" v-model="editDescription" class="form-control" placeholder="Description" ></textarea>
+								</div>
+								<div class="mb-3">
+									<input type="text" v-model="editName" class="form-control" id="writtenBy" placeholder="your name" >
+								</div>
+								<button type="submit" class="btn btn-primary">Save</button>
+							</form>
+						</div>
+					</div>
+					<!-- endform edit -->
+				</div>
+				<!-- end form  -->
+				
+				<div class="col-9">
+					<div class="row my-2 ">
+						<!-- start back-log -->
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card card-bg-color">
+								<div class="card-body">
+									<!-- start title -->
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title">Back-log</h5>
+										</div>
+										<div class="col"><span class="material-icons">library_add</span></div>
+									</div>
+									<!-- end  title-->
+									<!-- tempat card-back-log -->
+									<div class="scroll">
+										<div class="card" v-for="task in getBackLog">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12">
+														<h6 class="card-title">{{task.title}}</h6>
+														<p class="card-text text-muted my-1"><small>from : {{task.writtenBy}}</small> </p>
+														<p class="card-text"> <small>{{task.description}}</small> </p>
+													</div>
+													<div class="col-6 offset-6 align-items-end d-flex ">
+														<a href="#"><span class="material-icons color-icons" v-on:click.prevent="deleteTask(task.id)">delete</span></a>
+														<a href="#"><span class="material-icons"v-on:click.prevent="moveCategory(task.id)">exit_to_app</span></a>
+														<a href="#"><span class="material-icons" v-on:click.prevent="showFormEdit(task.id)">drive_file_rename_outline</span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end  tempat card-back-log -->
+								</div>
+							</div>
+						</div>
+						<!-- end back-log -->
+						<!-- start Product -->
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card card-bg-color">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title">Product</h5>
+										</div>
+										<div class="col"><span class="material-icons">library_add</span></div>
+									</div>
+									<!-- end  title-->
+									<!-- tempat card-product -->
+									<div class="scroll">
+										<div class="card" v-for="task in getProduct">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12">
+														<h6 class="card-title">{{task.title}}</h6>
+														<p class="card-text text-muted my-1"><small>from : {{task.writtenBy}}</small> </p>
+														<p class="card-text"> <small>{{task.description}}</small> </p>
+													</div>
+													<div class="col-6 offset-6 align-items-end d-flex ">
+														<a href="#"><span class="material-icons color-icons" v-on:click.prevent="deleteTask(task.id)">delete</span></a>
+														<a href="#"><span class="material-icons"v-on:click.prevent="moveCategory(task.id)">exit_to_app</span></a>
+														<a href="#"><span class="material-icons" v-on:click.prevent="showFormEdit(task.id)">drive_file_rename_outline</span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end  tempat card-product -->
+								</div>
+							</div>
+						</div>
+						<!-- end Product -->
+						<!-- start development -->
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card card-bg-color">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title">Development</h5>
+										</div>
+										<div class="col"><span class="material-icons">library_add</span></div>
+									</div>
+									<!-- end  title-->
+									<!-- tempat card-Development -->
+									<div class="scroll">
+										<div class="card" v-for="task in getDevelopment">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12">
+														<h6 class="card-title">{{task.title}}</h6>
+														<p class="card-text text-muted my-1"><small>from : {{task.writtenBy}}</small> </p>
+														<p class="card-text"> <small>{{task.description}}</small> </p>
+													</div>
+													<div class="col-6 offset-6 align-items-end d-flex ">
+														<a href="#"><span class="material-icons color-icons" v-on:click.prevent="deleteTask(task.id)">delete</span></a>
+														<a href="#"><span class="material-icons"v-on:click.prevent="moveCategory(task.id)">exit_to_app</span></a>
+														<a href="#"><span class="material-icons" v-on:click.prevent="showFormEdit(task.id)">drive_file_rename_outline</span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end  tempat card-Development -->
+								</div>
+							</div>
+						</div>
+						<!-- end development -->
+						<!-- start done -->
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="card card-bg-color">
+								<div class="card-body">
+									<div class="row">
+										<div class="col">
+											<h5 class="card-title">Done</h5>
+										</div>
+										<div class="col"><span class="material-icons">library_add</span></div>
+									</div>
+									<!-- end  title-->
+									<!-- tempat card-Done -->
+									<div class="scroll">
+										<div class="card" v-for="task in getDone">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12">
+														<h6 class="card-title">{{task.title}}</h6>
+														<p class="card-text text-muted my-1"><small>from : {{task.writtenBy}}</small> </p>
+														<p class="card-text"> <small>{{task.description}}</small> </p>
+													</div>
+													<div class="col-6 offset-6 align-items-end d-flex ">
+														<a href="#"><span class="material-icons color-icons" v-on:click.prevent="deleteTask(task.id)">delete</span></a>
+														<a href="#"><span class="material-icons" v-on:click.prevent="showFormEdit(task.id)">drive_file_rename_outline</span></a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end  tempat card-Done -->
+								</div>
+							</div>
+						</div>
+						<!-- end done -->
+					</div>
+				</div>
+				<!-- end connten -->
+				</div>
+			</div>
+	</div>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src="./js/main.js"></script>
 </body>
 
 </html>
