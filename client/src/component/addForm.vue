@@ -25,8 +25,8 @@
                 <select class="form-select" v-model="category">
                   <option disabled>-- Category --</option>
                   <option selected value="Back-log">Back-log</option>
-                  <option value="Product">Product</option>
-                  <option value="Development">Development</option>
+                  <option value="Todo">Todo</option>
+                  <option value="Doing">Doing</option>
                   <option value="Done">Done</option>
                 </select>
               </div>
@@ -47,7 +47,30 @@
 
 <script>
 export default {
-
+  data(){
+    return {
+      title:'',
+      description:'',
+      name :'',
+      category:''
+    }
+  },
+  methods:{
+    addTask(){
+      console.log('inih di add card');
+      const task={
+        title:this.title,
+        description:this.description,
+        writtenBy:this.name,
+        category:this.category
+      }
+       this.$emit('addTasks', task)
+      this.title = ''
+      this.description =''
+      this.name= ''
+      this.category=''
+    }
+  }
 }
 </script>
 

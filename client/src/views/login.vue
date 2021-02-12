@@ -31,6 +31,20 @@ export default {
 			email:'',
 			password:''
 		}
+	},
+	props:[
+		
+	],
+	methods:{
+		login() {
+			const data = {
+				email:this.email,
+				password:this.password
+			}
+			this.$emit('login', data)
+			this.email = ''
+			this.password = ''
+		}
 	}
 }
 </script>

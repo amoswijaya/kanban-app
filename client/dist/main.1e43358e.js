@@ -8938,7 +8938,32 @@ exports.default = void 0;
 //
 //
 //
-var _default = {};
+var _default = {
+  data: function data() {
+    return {
+      title: '',
+      description: '',
+      name: '',
+      category: ''
+    };
+  },
+  methods: {
+    addTask: function addTask() {
+      console.log('inih di add card');
+      var task = {
+        title: this.title,
+        description: this.description,
+        writtenBy: this.name,
+        category: this.category
+      };
+      this.$emit('addTasks', task);
+      this.title = '';
+      this.description = '';
+      this.name = '';
+      this.category = '';
+    }
+  }
+};
 exports.default = _default;
         var $e0ec86 = exports.default || module.exports;
       
@@ -9056,13 +9081,9 @@ exports.default = _default;
                   _vm._v("Back-log")
                 ]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "Product" } }, [
-                  _vm._v("Product")
-                ]),
+                _c("option", { attrs: { value: "Todo" } }, [_vm._v("Todo")]),
                 _vm._v(" "),
-                _c("option", { attrs: { value: "Development" } }, [
-                  _vm._v("Development")
-                ]),
+                _c("option", { attrs: { value: "Doing" } }, [_vm._v("Doing")]),
                 _vm._v(" "),
                 _c("option", { attrs: { value: "Done" } }, [_vm._v("Done")])
               ]
@@ -9176,9 +9197,21 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-var _default = {};
+var _default = {
+  props: ["task"],
+  methods: {
+    deleteTask: function deleteTask(id) {
+      console.log("inih di card");
+      this.$emit("deleteTask", id);
+    },
+    formEdit: function formEdit(id) {
+      this.$emit('formEdit', id);
+    },
+    move: function move(id) {
+      this.$emit('move', id);
+    }
+  }
+};
 exports.default = _default;
         var $0a3e2c = exports.default || module.exports;
       
@@ -9192,76 +9225,79 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "scroll" }, [
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _vm._m(0),
+  return _c("div", { staticClass: "card", attrs: { id: "cardSize" } }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
+          _c("h6", { staticClass: "card-title" }, [
+            _vm._v(_vm._s(_vm.task.title))
+          ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-6 offset-6 align-items-end d-flex" }, [
-            _c("a", { attrs: { href: "#" } }, [
-              _c(
-                "span",
-                {
-                  staticClass: "material-icons color-icons",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.deleteTask()
-                    }
+          _c("p", { staticClass: "card-text text-muted my-1" }, [
+            _c("small", [_vm._v("from : " + _vm._s(_vm.task.writtenBy))])
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [
+            _c("small", [_vm._v(_vm._s(_vm.task.description))])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-6 offset-6 align-items-end d-flex" }, [
+          _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "span",
+              {
+                staticClass: "material-icons color-icons",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.deleteTask(_vm.task.id)
                   }
-                },
-                [_vm._v("delete")]
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "#" } }, [
-              _c(
-                "span",
-                {
-                  staticClass: "material-icons",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.showFormEdit()
+                }
+              },
+              [_vm._v("delete")]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.task.category !== "Done"
+            ? _c("a", { attrs: { href: "#" } }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "material-icons",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.move(_vm.task.id)
+                      }
                     }
+                  },
+                  [_vm._v("exit_to_app")]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "#" } }, [
+            _c(
+              "span",
+              {
+                staticClass: "material-icons",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.formEdit(_vm.task.id)
                   }
-                },
-                [_vm._v("drive_file_rename_outline")]
-              )
-            ])
+                }
+              },
+              [_vm._v("drive_file_rename_outline")]
+            )
           ])
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("h6", { staticClass: "card-title" }),
-      _vm._v(" "),
-      _c("p", { staticClass: "card-text text-muted my-1" }, [
-        _c("small", [_vm._v("from : ")])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [_c("small")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("span", { staticClass: "material-icons" }, [_vm._v("exit_to_app")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9317,9 +9353,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {
     cardTask: _cardTask.default
+  },
+  props: ["tasks", "title"],
+  methods: {
+    deleteTask: function deleteTask(id) {
+      this.$emit("deleteTask", id);
+    },
+    formEdit: function formEdit(id) {
+      this.$emit('formEdit', id);
+    },
+    move: function move(id) {
+      this.$emit('move', id);
+    }
+  },
+  computed: {
+    filteredTask: function filteredTask() {
+      var _this = this;
+
+      return this.tasks.filter(function (el) {
+        return el.category === _this.title;
+      });
+    }
   }
 };
 exports.default = _default;
@@ -9336,16 +9402,26 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card card-bg-color" }, [
-    _c(
-      "div",
-      { staticClass: "card-body" },
-      [
-        _c("h5", { staticClass: "card-title" }, [_vm._v("Back-log")]),
-        _vm._v(" "),
-        _c("cardTask")
-      ],
-      1
-    )
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "scroll" },
+        _vm._l(_vm.filteredTask, function(task) {
+          return _c("cardTask", {
+            key: task.id,
+            attrs: { task: task },
+            on: {
+              deleteTask: _vm.deleteTask,
+              formEdit: _vm.formEdit,
+              move: _vm.move
+            }
+          })
+        }),
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -9424,7 +9500,27 @@ exports.default = void 0;
 //
 //
 //
-var _default = {};
+//
+//
+//
+var _default = {
+  props: ['dataEdit'],
+  data: function data() {
+    return {};
+  },
+  methods: {
+    save: function save() {
+      var newTask = {
+        title: this.dataEdit.title,
+        description: this.dataEdit.description,
+        writtenBy: this.dataEdit.writtenBy,
+        id: this.dataEdit.id
+      };
+      this.$emit('saveEdit', newTask);
+    }
+  },
+  computed: {}
+};
 exports.default = _default;
         var $f83436 = exports.default || module.exports;
       
@@ -9446,16 +9542,87 @@ exports.default = _default;
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.saveEdit($event)
+              return _vm.save($event)
             }
           }
         },
         [
-          _vm._m(0),
+          _c("div", { staticClass: "mb-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dataEdit.title,
+                  expression: "dataEdit.title"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "Title" },
+              domProps: { value: _vm.dataEdit.title },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.dataEdit, "title", $event.target.value)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "mb-3" }, [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dataEdit.description,
+                  expression: "dataEdit.description"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                name: "editDescription",
+                cols: "15",
+                rows: "5",
+                placeholder: "Description"
+              },
+              domProps: { value: _vm.dataEdit.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.dataEdit, "description", $event.target.value)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(2),
+          _c("div", { staticClass: "mb-3" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dataEdit.writtenBy,
+                  expression: "dataEdit.writtenBy"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", placeholder: "your name" },
+              domProps: { value: _vm.dataEdit.writtenBy },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.dataEdit, "writtenBy", $event.target.value)
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "button",
@@ -9467,46 +9634,7 @@ exports.default = _default;
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "Title" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3" }, [
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: {
-          name: "editDescription",
-          cols: "15",
-          rows: "5",
-          placeholder: "Description"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "your name" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
           return {
@@ -9582,6 +9710,30 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {};
@@ -9590,6 +9742,27 @@ var _default = {
     addFrom: _addForm.default,
     editFrom: _editForm.default,
     category: _category.default
+  },
+  props: ["dataTasks", "dataEdit", 'editStatus'],
+  methods: {
+    deleteTask: function deleteTask(id) {
+      this.$emit("deleteTask", id);
+    },
+    addTask: function addTask(task) {
+      this.$emit('addTask', task);
+    },
+    formEdit: function formEdit(id) {
+      this.$emit('formEdit', id);
+    },
+    saveEdit: function saveEdit(task) {
+      this.$emit('saveEdit', task);
+    },
+    move: function move(id) {
+      this.$emit('move', id);
+    }
+  },
+  mounted: function mounted() {
+    this.$emit('getTasks');
   }
 };
 exports.default = _default;
@@ -9610,19 +9783,85 @@ exports.default = _default;
       _c(
         "div",
         { staticClass: "col-3" },
-        [_c("addFrom"), _vm._v(" "), _c("editFrom")],
+        [
+          !_vm.editStatus
+            ? _c("addFrom", {
+                attrs: { dataEdit: _vm.dataEdit },
+                on: { addTasks: _vm.addTask }
+              })
+            : _c("editFrom", {
+                attrs: { dataEdit: _vm.dataEdit },
+                on: { saveEdit: _vm.saveEdit }
+              })
+        ],
         1
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-9" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [_c("category")], 1),
+          _c(
+            "div",
+            { staticClass: "col" },
+            [
+              _c("category", {
+                attrs: { tasks: _vm.dataTasks, title: "Back-log" },
+                on: {
+                  deleteTask: _vm.deleteTask,
+                  formEdit: _vm.formEdit,
+                  move: _vm.move
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("category")], 1),
+          _c(
+            "div",
+            { staticClass: "col" },
+            [
+              _c("category", {
+                attrs: { tasks: _vm.dataTasks, title: "Todo" },
+                on: {
+                  deleteTask: _vm.deleteTask,
+                  formEdit: _vm.formEdit,
+                  move: _vm.move
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("category")], 1),
+          _c(
+            "div",
+            { staticClass: "col" },
+            [
+              _c("category", {
+                attrs: { tasks: _vm.dataTasks, title: "Doing" },
+                on: {
+                  deleteTask: _vm.deleteTask,
+                  formEdit: _vm.formEdit,
+                  move: _vm.move
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col" }, [_c("category")], 1)
+          _c(
+            "div",
+            { staticClass: "col" },
+            [
+              _c("category", {
+                attrs: { tasks: _vm.dataTasks, title: "Done" },
+                on: {
+                  deleteTask: _vm.deleteTask,
+                  formEdit: _vm.formEdit,
+                  move: _vm.move
+                }
+              })
+            ],
+            1
+          )
         ])
       ])
     ])
@@ -9661,7 +9900,7 @@ render._withStripped = true
       
       }
     })();
-},{"../component/addForm":"src/component/addForm.vue","../component/category.vue":"src/component/category.vue","../component/editForm":"src/component/editForm.vue","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/nav.vue":[function(require,module,exports) {
+},{"../component/addForm":"src/component/addForm.vue","../component/category.vue":"src/component/category.vue","../component/editForm":"src/component/editForm.vue","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/component/navBar.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9687,72 +9926,83 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: 'nav',
-  props: [sendPage],
+  name: 'navbar',
+  props: ['page'],
   data: function data() {
     return {};
   },
-  methods: {
-    showPage: function showPage() {
-      console.log(this.page);
-    }
-  }
+  methods: {}
 };
 exports.default = _default;
-        var $c7a897 = exports.default || module.exports;
+        var $bcde00 = exports.default || module.exports;
       
-      if (typeof $c7a897 === 'function') {
-        $c7a897 = $c7a897.options;
+      if (typeof $bcde00 === 'function') {
+        $bcde00 = $bcde00.options;
       }
     
         /* template */
-        Object.assign($c7a897, (function () {
+        Object.assign($bcde00, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("nav", { staticClass: "navbar navbar-inverse crem" }, [
+    _c("div", { staticClass: "navbar navbar-inverse crem" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _vm._m(0),
         _vm._v(" "),
         _c("ul", { staticClass: "nav navbar-nav navbar-right list-inline" }, [
           _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "btn",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.$emit("changePage", "register")
-                  }
-                }
-              },
-              [_vm._v("Register")]
-            )
+            _vm.page === "login"
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("changePage", "register")
+                      }
+                    }
+                  },
+                  [_vm._v("Register")]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("li", [
-            _c(
-              "a",
-              {
-                staticClass: "btn",
-                attrs: { href: "#" },
-                on: {
-                  click: function($event) {
-                    return _vm.$emit("changePage", "login")
-                  }
-                }
-              },
-              [_vm._v("Login")]
-            )
+            _vm.page === "register"
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "btn",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("changePage", "login")
+                      }
+                    }
+                  },
+                  [_vm._v("Login")]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("li", [
-            _c("a", { attrs: { href: "#" }, on: { click: _vm.showPage } }, [
-              _vm._v("Logout")
-            ])
+            _vm.page === "dashboard"
+              ? _c(
+                  "a",
+                  {
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("logOut")
+                      }
+                    }
+                  },
+                  [_vm._v("Logout")]
+                )
+              : _vm._e()
           ])
         ])
       ])
@@ -9790,9 +10040,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$c7a897', $c7a897);
+            api.createRecord('$bcde00', $bcde00);
           } else {
-            api.reload('$c7a897', $c7a897);
+            api.reload('$bcde00', $bcde00);
           }
         }
 
@@ -9837,6 +10087,15 @@ var _default = {
       email: '',
       password: ''
     };
+  },
+  methods: {
+    register: function register() {
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      this.$emit('register', data);
+    }
   }
 };
 exports.default = _default;
@@ -9872,64 +10131,75 @@ exports.default = _default;
                 _vm._v("Register")
               ]),
               _vm._v(" "),
-              _c("form", [
-                _c("div", { staticClass: "mb-5 mt-5" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.email,
-                        expression: "email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "email", placeholder: "email" },
-                    domProps: { value: _vm.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.email = $event.target.value
-                      }
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.register($event)
                     }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "mb-4" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.password,
-                        expression: "password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "password", placeholder: "password" },
-                    domProps: { value: _vm.password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                  }
+                },
+                [
+                  _c("div", { staticClass: "mb-5 mt-5" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.email,
+                          expression: "email"
                         }
-                        _vm.password = $event.target.value
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email", placeholder: "email" },
+                      domProps: { value: _vm.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.email = $event.target.value
+                        }
                       }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary ",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Register")]
-                )
-              ])
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-4" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "password", placeholder: "password" },
+                      domProps: { value: _vm.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary ",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Register")]
+                  )
+                ]
+              )
             ])
           ]
         )
@@ -10009,6 +10279,18 @@ var _default = {
       email: '',
       password: ''
     };
+  },
+  props: [],
+  methods: {
+    login: function login() {
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      this.$emit('login', data);
+      this.email = '';
+      this.password = '';
+    }
   }
 };
 exports.default = _default;
@@ -11975,7 +12257,7 @@ exports.default = void 0;
 
 var _dashboard = _interopRequireDefault(require("./views/dashboard"));
 
-var _nav = _interopRequireDefault(require("./component/nav"));
+var _navBar = _interopRequireDefault(require("./component/navBar"));
 
 var _register = _interopRequireDefault(require("./views/register"));
 
@@ -11994,16 +12276,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {
     dashboard: _dashboard.default,
-    navBar: _nav.default,
+    navBar: _navBar.default,
     register: _register.default,
     login: _login.default
   },
   data: function data() {
     return {
-      page: ''
+      page: "",
+      url: "http://localhost:3000/",
+      tasks: [],
+      dataEdit: null,
+      editStatus: ''
     };
   },
   methods: {
@@ -12011,42 +12308,231 @@ var _default = {
       this.page = value;
     },
     checkAuth: function checkAuth() {
-      var selectedPage = '';
+      var selectedPage = "";
 
-      if (!localStorage.getItem('access_token')) {
-        selectedPage = 'login';
+      if (!localStorage.getItem("access_token")) {
+        selectedPage = "login";
       } else {
-        selectedPage = 'dashboard';
+        selectedPage = "dashboard";
       }
 
       this.page = selectedPage;
     },
-    login: function login() {
+    login: function login(data) {
       var _this = this;
 
+      console.log(data);
       (0, _axios.default)({
-        method: 'post',
-        url: this.url + 'users/login',
+        method: "post",
+        url: this.url + "users/login",
         data: {
-          email: this.loginEmail,
-          password: this.loginPassword
+          email: data.email,
+          password: data.password
         }
       }).then(function (res) {
-        localStorage.setItem('access_token', res.data.accsess_token);
+        localStorage.setItem("access_token", res.data.accsess_token);
 
         _this.checkAuth();
       }).catch(function (err) {
+        console.log(err);
         swal({
           title: err.response.data.err,
+          icon: "error"
+        });
+      });
+    },
+    register: function register(data) {
+      var _this2 = this;
+
+      console.log(data);
+      (0, _axios.default)({
+        method: "post",
+        url: this.url + "users/register",
+        data: {
+          email: data.email,
+          password: data.email
+        }
+      }).then(function (value) {
+        console.log(value.data);
+        _this2.page = "login";
+      }).catch(function (err) {
+        console.log(err.response.data.errors);
+        swal({
+          title: err.response.data.errors[0],
+          icon: "error"
+        });
+      });
+    },
+    getTasks: function getTasks() {
+      var _this3 = this;
+
+      (0, _axios.default)({
+        method: "GET",
+        url: this.url + "tasks",
+        headers: {
+          token: localStorage.getItem("access_token")
+        }
+      }).then(function (result) {
+        console.log(result.data);
+        _this3.tasks = result.data;
+      }).catch(function (err) {
+        console.log(err.response);
+      });
+    },
+    logout: function logout() {
+      localStorage.removeItem("access_token");
+      this.checkAuth();
+    },
+    deleteTask: function deleteTask(id) {
+      var _this4 = this;
+
+      console.log("inih delete");
+      (0, _axios.default)({
+        method: "DELETE",
+        url: this.url + "tasks/".concat(id),
+        headers: {
+          token: localStorage.getItem("access_token")
+        }
+      }).then(function (res) {
+        _this4.getTasks();
+
+        swal({
+          title: "Succsess delete this task!!!!yeay",
+          icon: "success"
+        });
+      }).catch(function (err) {
+        console.log(err);
+        swal({
+          title: "You cannot delete this task!!!!",
+          icon: "error"
+        });
+      });
+    },
+    addTask: function addTask(task) {
+      var _this5 = this;
+
+      console.log(task);
+      (0, _axios.default)({
+        method: "POST",
+        url: this.url + "tasks",
+        headers: {
+          token: localStorage.getItem("access_token")
+        },
+        data: {
+          title: task.title,
+          description: task.description,
+          writtenBy: task.writtenBy,
+          category: task.category
+        }
+      }).then(function (task) {
+        swal({
+          title: "Succes adding your task!!",
+          icon: "success"
+        });
+
+        _this5.getTasks();
+      }).catch(function (err) {
+        console.log(err); // swal({
+        //   title: err.response.data.errors[0],
+        //   icon: "error",
+        // });
+      });
+    },
+    formEdit: function formEdit(id) {
+      var _this6 = this;
+
+      console.log(id, 'inih di sinih');
+      (0, _axios.default)({
+        method: 'GET',
+        url: this.url + "tasks/".concat(id),
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        _this6.editStatus = 'edit';
+        _this6.dataEdit = data;
+      }).catch(function (err) {
+        console.log(err);
+        _this6.editStatus = '';
+        swal({
+          title: 'You cannot move this task!!!!',
           icon: 'error'
         });
-      }).then(function () {
-        _this.reset();
+      });
+    },
+    saveEdit: function saveEdit(task) {
+      var _this7 = this;
+
+      console.log(task);
+      (0, _axios.default)({
+        method: 'PUT',
+        url: this.url + "tasks/".concat(task.id),
+        data: {
+          title: task.title,
+          description: task.description,
+          writtenBy: task.writtenBy
+        },
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      }).then(function (res) {
+        _this7.getTasks();
+
+        _this7.editStatus = '';
+        swal({
+          title: res.data.msg,
+          icon: "success"
+        });
+      }).catch(function (err) {
+        swal({
+          title: err.response.data.errors[0],
+          icon: "error"
+        });
+      });
+    },
+    moveCategory: function moveCategory(id) {
+      var _this8 = this;
+
+      console.log(id);
+      var category = ['Back-log', 'Todo', 'Doing', 'Done'];
+      var afterCategory;
+      (0, _axios.default)({
+        method: 'GET',
+        url: this.url + "tasks/".concat(id),
+        headers: {
+          token: localStorage.getItem('access_token')
+        }
+      }).then(function (task) {
+        afterCategory = category[category.indexOf(task.data.category) + 1];
+        console.log(afterCategory);
+        return (0, _axios.default)({
+          method: 'PATCH',
+          url: _this8.url + "tasks/".concat(id),
+          headers: {
+            token: localStorage.getItem('access_token')
+          },
+          data: {
+            category: afterCategory
+          }
+        });
+      }).then(function (res) {
+        _this8.getTasks();
+
+        console.log(res.data);
+      }).catch(function (err) {
+        swal({
+          title: 'You cannot move this task!!!!',
+          icon: 'error'
+        });
       });
     }
   },
   created: function created() {
-    console.log('inih created');
+    console.log("inih created");
+    this.checkAuth();
+  },
+  mounted: function mounted() {
     this.checkAuth();
   }
 };
@@ -12067,16 +12553,30 @@ exports.default = _default;
     "div",
     [
       _c("navBar", {
-        attrs: { sendPage: _vm.page },
-        on: { changePage: _vm.changePage }
+        attrs: { page: _vm.page },
+        on: { changePage: _vm.changePage, logOut: _vm.logout }
       }),
       _vm._v(" "),
       _vm.page === "register"
-        ? _c("register")
+        ? _c("register", { on: { register: _vm.register } })
         : _vm.page === "login"
-        ? _c("login")
+        ? _c("login", { on: { login: _vm.login } })
         : _vm.page === "dashboard"
-        ? _c("dashboard")
+        ? _c("dashboard", {
+            attrs: {
+              dataTasks: _vm.tasks,
+              editStatus: _vm.editStatus,
+              dataEdit: _vm.dataEdit
+            },
+            on: {
+              deleteTask: _vm.deleteTask,
+              getTasks: _vm.getTasks,
+              addTask: _vm.addTask,
+              formEdit: _vm.formEdit,
+              saveEdit: _vm.saveEdit,
+              move: _vm.moveCategory
+            }
+          })
         : _vm._e()
     ],
     1
@@ -12115,7 +12615,7 @@ render._withStripped = true
       
       }
     })();
-},{"./views/dashboard":"src/views/dashboard.vue","./component/nav":"src/component/nav.vue","./views/register":"src/views/register.vue","./views/login":"src/views/login.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./views/dashboard":"src/views/dashboard.vue","./component/navBar":"src/component/navBar.vue","./views/register":"src/views/register.vue","./views/login":"src/views/login.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
@@ -12157,7 +12657,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38499" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41043" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

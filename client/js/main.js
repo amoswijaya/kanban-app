@@ -164,7 +164,7 @@ const app = new Vue({
 				})
 		},
 		moveCategory(id) {
-			const category = ['Back-log', 'Product', 'Development', 'Done']
+			const category = ['Back-log', 'Todo', 'Doing', 'Done']
 			let afterCategory
 			axios({
 					method: 'GET',
