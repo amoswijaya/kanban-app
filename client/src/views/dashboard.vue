@@ -7,7 +7,7 @@
       </div>
       <div class="col-9">
         <div class="row">
-          <div class="col">
+          <div class="col mt-3 mt-3" >
             <category
               :tasks="dataTasks"
               :title="'Back-log'"
@@ -16,7 +16,7 @@
               @move="move"
             ></category>
           </div>
-          <div class="col">
+          <div class="col mt-3">
             <category
               :tasks="dataTasks"
               :title="'Todo'"
@@ -25,7 +25,7 @@
               @move="move"
             ></category>
           </div>
-          <div class="col">
+          <div class="col mt-3">
             <category
               :tasks="dataTasks"
               :title="'Doing'"
@@ -34,7 +34,7 @@
               @move="move"
             ></category>
           </div>
-          <div class="col">
+          <div class="col mt-3">
             <category
               :tasks="dataTasks"
               :title="'Done'"

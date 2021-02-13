@@ -2,7 +2,7 @@
   <div>
     <navBar @changePage="changePage" @logOut="logout" :page="page"></navBar>
     <register @register="register" v-if="page === 'register'"></register>
-    <login @login="login" v-else-if="page === 'login'"></login>
+    <login @login="login" @onSignInSuccess="onSignInSuccess" @onSignInError="onSignInError" v-else-if="page === 'login'"></login>
     <dashboard
       :dataTasks="tasks"
       :editStatus="editStatus"
@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       page: "",
-      url: "http://localhost:3000/",
+      url: "https://kanban-amos.herokuapp.com/",
       tasks: [],
       dataEdit:null,
       editStatus:''
@@ -68,7 +68,7 @@ export default {
           this.checkAuth();
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response);
           swal({
             title: err.response.data.err,
             icon: "error",
@@ -76,23 +76,20 @@ export default {
         });
     },
     register(data) {
-      console.log(data);
       axios({
         method: "post",
         url: this.url + "users/register",
         data: {
           email: data.email,
-          password: data.email,
+          password: data.password,
         },
       })
         .then((value) => {
-          console.log(value.data);
           this.page = "login";
         })
         .catch((err) => {
-          console.log(err.response.data.errors);
           swal({
-            title: err.response.data.errors[0],
+            title: err.response.data.error,
             icon: "error",
           });
         });
@@ -106,7 +103,6 @@ export default {
         },
       })
         .then((result) => {
-          console.log(result.data);
           this.tasks = result.data;
         })
         .catch((err) => {
@@ -118,7 +114,6 @@ export default {
       this.checkAuth();
     },
     deleteTask(id) {
-      console.log("inih delete");
       axios({
         method: "DELETE",
         url: this.url + `tasks/${id}`,
@@ -142,7 +137,6 @@ export default {
         });
     },
     addTask(task) {
-			console.log(task);
       axios({
         method: "POST",
         url: this.url + "tasks",
@@ -164,11 +158,10 @@ export default {
           this.getTasks();
         })
         .catch((err) => {
-					console.log(err);
-          // swal({
-          //   title: err.response.data.errors[0],
-          //   icon: "error",
-          // });
+          swal({
+            title: err.response.data.errors[0],
+            icon: "error",
+          });
         });
     },
     formEdit(id){
@@ -185,7 +178,6 @@ export default {
 				this.dataEdit = data
 			})
 			.catch((err) => {
-        console.log(err);
 			this.editStatus = ''
 				swal({
 					title: 'You cannot move this task!!!!',
@@ -194,7 +186,6 @@ export default {
 			})
 		},
     saveEdit(task){
-      console.log(task);
 			axios({
 				method:'PUT',
 				url:this.url +`tasks/${task.id}`,
@@ -235,7 +226,6 @@ export default {
 				})
 				.then(task => {
 					afterCategory = category[category.indexOf(task.data.category) + 1]
-					console.log(afterCategory);
 					return axios({
 						method: 'PATCH',
 						url: this.url + `tasks/${id}`,
@@ -249,7 +239,6 @@ export default {
 				})
 				.then((res) => {
           this.getTasks()
-					console.log(res.data);
 				})
 				.catch((err) => {
 					swal({
@@ -258,6 +247,29 @@ export default {
 					})
 				})
 		},
+    onSignInSuccess (googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      const id_token = googleUser.getAuthResponse().id_token // etc etc
+      axios({
+        method: "POST",
+        url: this.url +'users/googlelogin',
+        data: {
+            id_token
+        }
+      })
+      .then((res) => {
+        localStorage.setItem('access_token', res.data.access_token)
+        this.checkAuth();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    },
+    onSignInError (error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error)
+    }
   },
   created() {
     console.log("inih created");

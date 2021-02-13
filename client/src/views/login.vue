@@ -15,7 +15,13 @@
 							<button type="submit" class="btn btn-primary ">Login</button>
 						</div>
 						<div class="col">
-							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+							<g-signin-button
+							  class="btn btn-primary"
+								:params="googleSignInParams"
+								@success="onSignInSuccess"
+								@error="onSignInError">
+								Sign in with Google
+							</g-signin-button>
 						</div>
 					</div>
 				</form>
@@ -29,7 +35,10 @@ export default {
 	data(){
 		return {
 			email:'',
-			password:''
+			password:'',
+			googleSignInParams: {
+				client_id: '638165817231-ns27qioc6tq2gfkn3dc7jeq896dpjtuj.apps.googleusercontent.com'
+			}
 		}
 	},
 	props:[
@@ -44,11 +53,28 @@ export default {
 			this.$emit('login', data)
 			this.email = ''
 			this.password = ''
-		}
+		},
+		onSignInSuccess (googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      this.$emit('onSignInSuccess', googleUser)
+    },
+    onSignInError (error) {
+      // `error` contains any error occurred.
+      this.$emit('onSignInError', error)
+    }
 	}
 }
 </script>
 
 <style>
-
+.g-signin-button {
+  /* This is where you control how the button looks. Be creative! */
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  background-color: #3c82f7;
+  color: #fff;
+  box-shadow: 0 3px 0 #0f69ff;
+}
 </style>

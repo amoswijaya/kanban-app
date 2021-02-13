@@ -8949,7 +8949,6 @@ var _default = {
   },
   methods: {
     addTask: function addTask() {
-      console.log('inih di add card');
       var task = {
         title: this.title,
         description: this.description,
@@ -9201,7 +9200,6 @@ var _default = {
   props: ["task"],
   methods: {
     deleteTask: function deleteTask(id) {
-      console.log("inih di card");
       this.$emit("deleteTask", id);
     },
     formEdit: function formEdit(id) {
@@ -9801,7 +9799,7 @@ exports.default = _default;
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col" },
+            { staticClass: "col mt-3 mt-3" },
             [
               _c("category", {
                 attrs: { tasks: _vm.dataTasks, title: "Back-log" },
@@ -9817,7 +9815,7 @@ exports.default = _default;
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col" },
+            { staticClass: "col mt-3" },
             [
               _c("category", {
                 attrs: { tasks: _vm.dataTasks, title: "Todo" },
@@ -9833,7 +9831,7 @@ exports.default = _default;
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col" },
+            { staticClass: "col mt-3" },
             [
               _c("category", {
                 attrs: { tasks: _vm.dataTasks, title: "Doing" },
@@ -9849,7 +9847,7 @@ exports.default = _default;
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col" },
+            { staticClass: "col mt-3" },
             [
               _c("category", {
                 attrs: { tasks: _vm.dataTasks, title: "Done" },
@@ -9907,7 +9905,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
 //
 //
 //
@@ -10015,9 +10012,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "navbar-header" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-        _vm._v("Kanban")
-      ])
+      _c("h6", { staticClass: "text-uppercase" }, [_vm._v("kanban")])
     ])
   }
 ]
@@ -10095,6 +10090,8 @@ var _default = {
         password: this.password
       };
       this.$emit('register', data);
+      this.email = "";
+      this.password = "";
     }
   }
 };
@@ -10273,11 +10270,20 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      googleSignInParams: {
+        client_id: '638165817231-ns27qioc6tq2gfkn3dc7jeq896dpjtuj.apps.googleusercontent.com'
+      }
     };
   },
   props: [],
@@ -10290,6 +10296,15 @@ var _default = {
       this.$emit('login', data);
       this.email = '';
       this.password = '';
+    },
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      this.$emit('onSignInSuccess', googleUser);
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      this.$emit('onSignInError', error);
     }
   }
 };
@@ -10383,7 +10398,33 @@ exports.default = _default;
                   })
                 ]),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col" },
+                    [
+                      _c(
+                        "g-signin-button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { params: _vm.googleSignInParams },
+                          on: {
+                            success: _vm.onSignInSuccess,
+                            error: _vm.onSignInError
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t\tSign in with Google\n\t\t\t\t\t\t\t"
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ])
               ]
             )
           ])
@@ -10397,21 +10438,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary ", attrs: { type: "submit" } },
-          [_vm._v("Login")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
-        _c("div", {
-          staticClass: "g-signin2",
-          attrs: { "data-onsuccess": "onSignIn" }
-        })
-      ])
+    return _c("div", { staticClass: "col" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary ", attrs: { type: "submit" } },
+        [_vm._v("Login")]
+      )
     ])
   }
 ]
@@ -12297,7 +12329,7 @@ var _default = {
   data: function data() {
     return {
       page: "",
-      url: "http://localhost:3000/",
+      url: "https://kanban-amos.herokuapp.com/",
       tasks: [],
       dataEdit: null,
       editStatus: ''
@@ -12334,7 +12366,7 @@ var _default = {
 
         _this.checkAuth();
       }).catch(function (err) {
-        console.log(err);
+        console.log(err.response);
         swal({
           title: err.response.data.err,
           icon: "error"
@@ -12344,21 +12376,18 @@ var _default = {
     register: function register(data) {
       var _this2 = this;
 
-      console.log(data);
       (0, _axios.default)({
         method: "post",
         url: this.url + "users/register",
         data: {
           email: data.email,
-          password: data.email
+          password: data.password
         }
       }).then(function (value) {
-        console.log(value.data);
         _this2.page = "login";
       }).catch(function (err) {
-        console.log(err.response.data.errors);
         swal({
-          title: err.response.data.errors[0],
+          title: err.response.data.error,
           icon: "error"
         });
       });
@@ -12373,7 +12402,6 @@ var _default = {
           token: localStorage.getItem("access_token")
         }
       }).then(function (result) {
-        console.log(result.data);
         _this3.tasks = result.data;
       }).catch(function (err) {
         console.log(err.response);
@@ -12386,7 +12414,6 @@ var _default = {
     deleteTask: function deleteTask(id) {
       var _this4 = this;
 
-      console.log("inih delete");
       (0, _axios.default)({
         method: "DELETE",
         url: this.url + "tasks/".concat(id),
@@ -12411,7 +12438,6 @@ var _default = {
     addTask: function addTask(task) {
       var _this5 = this;
 
-      console.log(task);
       (0, _axios.default)({
         method: "POST",
         url: this.url + "tasks",
@@ -12432,10 +12458,10 @@ var _default = {
 
         _this5.getTasks();
       }).catch(function (err) {
-        console.log(err); // swal({
-        //   title: err.response.data.errors[0],
-        //   icon: "error",
-        // });
+        swal({
+          title: err.response.data.errors[0],
+          icon: "error"
+        });
       });
     },
     formEdit: function formEdit(id) {
@@ -12453,7 +12479,6 @@ var _default = {
         _this6.editStatus = 'edit';
         _this6.dataEdit = data;
       }).catch(function (err) {
-        console.log(err);
         _this6.editStatus = '';
         swal({
           title: 'You cannot move this task!!!!',
@@ -12464,7 +12489,6 @@ var _default = {
     saveEdit: function saveEdit(task) {
       var _this7 = this;
 
-      console.log(task);
       (0, _axios.default)({
         method: 'PUT',
         url: this.url + "tasks/".concat(task.id),
@@ -12505,7 +12529,6 @@ var _default = {
         }
       }).then(function (task) {
         afterCategory = category[category.indexOf(task.data.category) + 1];
-        console.log(afterCategory);
         return (0, _axios.default)({
           method: 'PATCH',
           url: _this8.url + "tasks/".concat(id),
@@ -12518,14 +12541,37 @@ var _default = {
         });
       }).then(function (res) {
         _this8.getTasks();
-
-        console.log(res.data);
       }).catch(function (err) {
         swal({
           title: 'You cannot move this task!!!!',
           icon: 'error'
         });
       });
+    },
+    onSignInSuccess: function onSignInSuccess(googleUser) {
+      var _this9 = this;
+
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      var id_token = googleUser.getAuthResponse().id_token; // etc etc
+
+      (0, _axios.default)({
+        method: "POST",
+        url: this.url + 'users/googlelogin',
+        data: {
+          id_token: id_token
+        }
+      }).then(function (res) {
+        localStorage.setItem('access_token', res.data.access_token);
+
+        _this9.checkAuth();
+      }).catch(function (err) {
+        console.log(err);
+      });
+    },
+    onSignInError: function onSignInError(error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error);
     }
   },
   created: function created() {
@@ -12560,7 +12606,13 @@ exports.default = _default;
       _vm.page === "register"
         ? _c("register", { on: { register: _vm.register } })
         : _vm.page === "login"
-        ? _c("login", { on: { login: _vm.login } })
+        ? _c("login", {
+            on: {
+              login: _vm.login,
+              onSignInSuccess: _vm.onSignInSuccess,
+              onSignInError: _vm.onSignInError
+            }
+          })
         : _vm.page === "dashboard"
         ? _c("dashboard", {
             attrs: {
@@ -12615,21 +12667,29 @@ render._withStripped = true
       
       }
     })();
-},{"./views/dashboard":"src/views/dashboard.vue","./component/navBar":"src/component/navBar.vue","./views/register":"src/views/register.vue","./views/login":"src/views/login.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/main.js":[function(require,module,exports) {
+},{"./views/dashboard":"src/views/dashboard.vue","./component/navBar":"src/component/navBar.vue","./views/register":"src/views/register.vue","./views/login":"src/views/login.vue","axios":"node_modules/axios/index.js","_css_loader":"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js":[function(require,module,exports) {
+var define;
+'use strict';var _typeof='function'==typeof Symbol&&'symbol'==typeof Symbol.iterator?function(obj){return typeof obj}:function(obj){return obj&&'function'==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?'symbol':typeof obj};(function(){function a(c){'undefined'!=typeof console&&console.error('[g-signin-button] '+c)}function b(c){c.component('g-signin-button',{name:'g-signin-button',render:function render(d){return d('div',{attrs:{class:'g-signin-button'},ref:'signinBtn'},this.$slots.default)},props:{params:{type:Object,required:!0,default:function _default(){return{}}}},mounted:function mounted(){var _this=this;return window.gapi?this.params.client_id?void window.gapi.load('auth2',function(){var d=window.gapi.auth2.init(_this.params);d.attachClickHandler(_this.$refs.signinBtn,{},function(e){_this.$emit('success',e)},function(e){_this.$emit('error',e),_this.$emit('failure',e)})}):void a('params.client_id must be specified.'):void a('"https://apis.google.com/js/api:client.js" needs to be included as a <script>.')}})}'object'==('undefined'==typeof exports?'undefined':_typeof(exports))?module.exports=b:'function'==typeof define&&define.amd?define([],function(){return b}):window.Vue&&window.Vue.use(b)})();
+
+},{}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 var _vue = _interopRequireDefault(require("vue"));
 
 var _app = _interopRequireDefault(require("./app.vue"));
 
+var _vueGoogleSigninButton = _interopRequireDefault(require("vue-google-signin-button"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue.default.use(_vueGoogleSigninButton.default);
 
 new _vue.default({
   render: function render(h) {
     return h(_app.default);
   }
 }).$mount('#app');
-},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./app.vue":"src/app.vue"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./app.vue":"src/app.vue","vue-google-signin-button":"node_modules/vue-google-signin-button/dist/vue-google-signin-button.min.js"}],"../../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -12657,7 +12717,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41043" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33117" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

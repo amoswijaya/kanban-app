@@ -57,7 +57,6 @@ export default {
   },
   methods:{
     addTask(){
-      console.log('inih di add card');
       const task={
         title:this.title,
         description:this.description,

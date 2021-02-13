@@ -3,9 +3,8 @@
 	<div class="navbar navbar-inverse crem">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Kanban</a>
+				<h6 class="text-uppercase">kanban</h6>
 			</div>
-			 
 			<ul class="nav navbar-nav navbar-right list-inline">
 				<li><a href="#"  v-if="page === 'login'" @click="$emit('changePage', 'register')" class="btn">Register</a></li>
 				<li><a href="#" v-if="page === 'register'" @click="$emit('changePage', 'login')" class="btn">Login</a></li>

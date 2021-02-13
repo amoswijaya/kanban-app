@@ -34,6 +34,8 @@ export default {
 				password: this.password
 			}
 			this.$emit('register', data)
+            this.email=""
+            this.password=""
 		}
 	}
 }

@@ -36,7 +36,6 @@ export default {
   props: ["task"],
   methods: {
     deleteTask(id) {
-      console.log("inih di card");
       this.$emit("deleteTask", id);
     },
     formEdit(id){
