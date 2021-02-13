@@ -54,7 +54,6 @@ export default {
       this.page = selectedPage;
     },
     login(data) {
-      console.log(data);
       axios({
         method: "post",
         url: this.url + "users/login",

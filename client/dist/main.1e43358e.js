@@ -12353,7 +12353,6 @@ var _default = {
     login: function login(data) {
       var _this = this;
 
-      console.log(data);
       (0, _axios.default)({
         method: "post",
         url: this.url + "users/login",
